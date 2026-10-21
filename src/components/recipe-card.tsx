@@ -14,6 +14,7 @@ export function RecipeCard({ suggestion }: { suggestion: Suggestion }) {
 
   return (
     <article aria-labelledby="recipe-name" className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+      <RecipePhoto name={recipe.name} imageUrl={recipe.imageUrl} imageCredit={recipe.imageCredit} />
       <div className="border-b border-border p-6">
         <div className="flex flex-wrap items-center gap-2">
           {recipe.publicationStatus === "sample" && (
@@ -58,10 +59,12 @@ export function RecipeCard({ suggestion }: { suggestion: Suggestion }) {
               <li
                 key={t}
                 className={`rounded-full border px-2.5 py-0.5 text-xs ${
-                  matchedCravings.includes(t) ? "border-accent bg-accent-soft text-accent" : "border-border"
+                  matchedCravings.includes(t) ? "border-accent bg-accent-soft font-semibold text-accent" : "border-border"
                 }`}
               >
+                {matchedCravings.includes(t) && <span aria-hidden="true">✓ </span>}
                 {TAG_LABELS[t].fil}
+                {matchedCravings.includes(t) && <span className="sr-only"> (matches your craving)</span>}
               </li>
             ))}
           </ul>
@@ -122,6 +125,41 @@ export function RecipeCard({ suggestion }: { suggestion: Suggestion }) {
         {recipe.sourceAttribution}
       </footer>
     </article>
+  );
+}
+
+// Only real, credited photos of the dish are shown. Without one we show a
+// clearly labelled placeholder instead of a stock image.
+function RecipePhoto({
+  name,
+  imageUrl,
+  imageCredit,
+}: {
+  name: string;
+  imageUrl: string | null;
+  imageCredit: string | null;
+}) {
+  if (imageUrl) {
+    return (
+      <figure className="border-b border-border">
+        {/* eslint-disable-next-line @next/next/no-img-element -- recipe photos may come from any credited host */}
+        <img src={imageUrl} alt={`Photo of ${name}`} className="aspect-[16/9] w-full object-cover" />
+        {imageCredit && (
+          <figcaption className="px-6 py-2 text-xs text-muted-foreground">Photo: {imageCredit}</figcaption>
+        )}
+      </figure>
+    );
+  }
+  return (
+    <div className="flex aspect-[16/6] flex-col items-center justify-center gap-2 border-b border-border bg-muted px-6 text-center">
+      <span
+        aria-hidden="true"
+        className="flex size-16 items-center justify-center rounded-full border-2 border-dashed border-muted-foreground/40 font-serif text-2xl font-semibold text-muted-foreground"
+      >
+        {name.charAt(0)}
+      </span>
+      <p className="text-sm font-medium text-muted-foreground">No verified photo of this dish yet</p>
+    </div>
   );
 }
 

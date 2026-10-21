@@ -15,6 +15,7 @@
   --color-primary: #b4441a;
   --color-primary-hover: #983713;
   --color-primary-foreground: #fff8f0;
+  --color-primary-soft: #f9e4d6;
   --color-accent: #3c6a45;
   --color-accent-soft: #e4eedf;
   --color-warning-soft: #fbecd0;
@@ -23,6 +24,11 @@
 
 :root {
   color-scheme: light;
+}
+
+html {
+  /* Keeps focused controls clear of the sticky "Suggest an ulam" bar. */
+  scroll-padding-bottom: 9rem;
 }
 
 body {
