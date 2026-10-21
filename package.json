@@ -1,0 +1,15 @@
+{
+  "name": "whatsmyulam",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "What'sMyUlam.ph - Filipino meal discovery. Core logic only so far; the Next.js app is not scaffolded yet.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node --test \"src/**/*.test.ts\"",
+    "validate:data": "node scripts/validate-data.ts",
+    "suggest": "node scripts/suggest.ts"
+  }
+}
