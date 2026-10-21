@@ -1,0 +1,8 @@
+# Netlify detects Next.js and adds its official Next.js runtime automatically.
+# No environment variables or secrets are needed for the MVP.
+[build]
+  command = "pnpm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
